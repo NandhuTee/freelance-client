@@ -1,27 +1,49 @@
+// GigDetail.jsx
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import API from '../services/api';
 
 const GigDetail = () => {
-  const { gigId } = useParams();
+  const { id } = useParams();
   const [gig, setGig] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    API.get(`/gigs/${gigId}`)
+    API.get(`/gigs/${id}`)
       .then((res) => setGig(res.data))
       .catch((err) => console.error(err));
-  }, [gigId]);
+  }, [id]);
 
-  if (!gig) return <p>Loading gig details...</p>;
+  const handleDelete = async () => {
+    try {
+      await API.delete(`/gigs/${id}`);
+      alert('Gig deleted!');
+      navigate('/gigs');
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  if (!gig) return <p>Loading...</p>;
 
   return (
     <div style={{ padding: '20px' }}>
-      <h1>{gig.title}</h1>
+      <h2>{gig.title}</h2>
       <p>{gig.description}</p>
       <p><strong>Price:</strong> ₹{gig.price}</p>
-      <p><strong>Category:</strong> {gig.category}</p>
-      <p><strong>Delivery Time:</strong> {gig.deliveryTime} days</p>
-      {/* Add images or other details if available */}
+
+      {/* 🔽 Your Buttons */}
+      <div style={{ marginTop: '20px' }}>
+        <Link to={`/edit-gig/${gig._id}`}>
+          <button style={{ marginRight: '10px' }}>Edit</button>
+        </Link>
+        <button
+          onClick={handleDelete}
+          style={{ backgroundColor: 'red', color: 'white' }}
+        >
+          Delete
+        </button>
+      </div>
     </div>
   );
 };

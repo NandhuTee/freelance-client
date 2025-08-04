@@ -7,6 +7,7 @@ import Register from './pages/Register';
 import Chat from './components/Chat';
 import Navbar from './components/Navbar';
 import GigDetail from './pages/GigDetail';
+import EditGig from "./pages/EditGig";
 const Layout = () => (
   <>
     <Navbar />
@@ -25,12 +26,12 @@ const router = createBrowserRouter([
       { path: "login", element: <Login /> },
       { path: "register", element: <Register /> },
       { path: "chat", element: <Chat /> },
-      { path: "gigs/:gigId", element: <GigDetail /> },
-      
-
-    ]
-  }
+      { path: "gigs/:id", element: <GigDetail /> },
+      { path: "edit-gig/:id", element: <EditGig /> },
+    ],
+  },
 ]);
+
 
 function App() {
   return <RouterProvider router={router} />;
