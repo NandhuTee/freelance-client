@@ -6,7 +6,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Chat from './components/Chat';
 import Navbar from './components/Navbar';
-
+import GigDetail from './pages/GigDetail';
 const Layout = () => (
   <>
     <Navbar />
@@ -25,6 +25,9 @@ const router = createBrowserRouter([
       { path: "login", element: <Login /> },
       { path: "register", element: <Register /> },
       { path: "chat", element: <Chat /> },
+      { path: "gigs/:gigId", element: <GigDetail /> },
+      
+
     ]
   }
 ]);
