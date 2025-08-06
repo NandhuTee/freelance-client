@@ -13,7 +13,6 @@ const EditGig = () => {
     deliveryTime: ''
   });
 
-  // Fetch gig data
   useEffect(() => {
     API.get(`/gigs/${id}`)
       .then(res => setForm(res.data))
@@ -31,34 +30,50 @@ const EditGig = () => {
   };
 
   return (
-    <div>
-      <h2>Edit Gig</h2>
+    <div className="max-w-xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg">
+      <h2 className="text-2xl font-semibold text-blue-700 mb-6 text-center">Edit Gig</h2>
+      
       <input
+        className="w-full border border-gray-300 p-2 rounded mb-4"
         placeholder="Title"
         value={form.title}
         onChange={(e) => setForm({ ...form, title: e.target.value })}
       />
+
       <textarea
+        className="w-full border border-gray-300 p-2 rounded mb-4"
         placeholder="Description"
         value={form.description}
         onChange={(e) => setForm({ ...form, description: e.target.value })}
       />
+
       <input
+        className="w-full border border-gray-300 p-2 rounded mb-4"
         placeholder="Price"
         value={form.price}
         onChange={(e) => setForm({ ...form, price: e.target.value })}
       />
+
       <input
+        className="w-full border border-gray-300 p-2 rounded mb-4"
         placeholder="Category"
         value={form.category}
         onChange={(e) => setForm({ ...form, category: e.target.value })}
       />
+
       <input
+        className="w-full border border-gray-300 p-2 rounded mb-6"
         placeholder="Delivery Time"
         value={form.deliveryTime}
         onChange={(e) => setForm({ ...form, deliveryTime: e.target.value })}
       />
-      <button onClick={handleSubmit}>Update Gig</button>
+
+      <button
+        onClick={handleSubmit}
+        className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded transition"
+      >
+        Update Gig
+      </button>
     </div>
   );
 };

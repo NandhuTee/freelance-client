@@ -3,14 +3,13 @@ import { useParams, useNavigate } from "react-router-dom";
 import API from "../services/api";
 
 const GigDetail = () => {
-  const { id } = useParams(); // get gig ID from URL
+  const { id } = useParams();
   const navigate = useNavigate();
   const userId = localStorage.getItem("userId");
 
   const [gig, setGig] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // 🔽 Fetch gig by ID on component mount
   useEffect(() => {
     const fetchGig = async () => {
       try {
@@ -36,29 +35,26 @@ const GigDetail = () => {
     }
   };
 
-  // ✅ Put console.log outside return
-  console.log("gig.userId:", gig?.userId, "userId:", userId);
-
-  if (loading) return <p>Loading...</p>;
-  if (!gig) return <p>Gig not found.</p>;
+  if (loading) return <p className="text-center mt-10">Loading...</p>;
+  if (!gig) return <p className="text-center mt-10 text-red-500">Gig not found.</p>;
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>{gig.title}</h2>
-      <p>{gig.description}</p>
-      <p>Price: ₹{gig.price}</p>
+    <div className="max-w-3xl mx-auto p-6 bg-white shadow rounded-lg mt-10">
+      <h2 className="text-3xl font-bold text-blue-800 mb-4">{gig.title}</h2>
+      <p className="text-gray-700 mb-4">{gig.description}</p>
+      <p className="text-lg font-medium text-gray-900 mb-6">Price: ₹{gig.price}</p>
 
       {gig.userId?._id === userId && (
-        <div style={{ marginTop: "20px" }}>
+        <div className="flex gap-4">
           <button
             onClick={() => navigate(`/edit-gig/${id}`)}
-            style={{ marginRight: "10px" }}
+            className="px-4 py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded shadow"
           >
             Edit
           </button>
           <button
             onClick={handleDelete}
-            style={{ backgroundColor: "red", color: "white" }}
+            className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded shadow"
           >
             Delete
           </button>

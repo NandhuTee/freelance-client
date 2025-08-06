@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import API from '../services/api';
+import GigCard from '../components/GigCard';
 
 const Gigs = () => {
   const [gigs, setGigs] = useState([]);
@@ -12,34 +12,17 @@ const Gigs = () => {
   }, []);
 
   return (
-    <div style={{ padding: '20px' }}>
-      <h1>Available Gigs</h1>
+    <div className="p-6 min-h-screen bg-blue-50">
+      <h1 className="text-3xl font-bold text-center mb-8 text-blue-800">Available Gigs</h1>
+
       {gigs.length === 0 ? (
-        <p>No gigs available yet.</p>
+        <p className="text-center text-gray-500">No gigs available yet.</p>
       ) : (
-        gigs.map((gig) => (
-          <Link
-            to={`/gigs/${gig._id}`}
-            key={gig._id}
-            style={{
-              textDecoration: 'none',
-              color: 'inherit',
-              display: 'block',
-              marginBottom: '15px'
-            }}
-          >
-            <div style={{
-              border: '1px solid #ccc',
-              padding: '10px',
-              borderRadius: '8px',
-              background: '#f9f9f9'
-            }}>
-              <h2>{gig.title}</h2>
-              <p>{gig.description}</p>
-              <small>Price: ₹{gig.price}</small>
-            </div>
-          </Link>
-        ))
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {gigs.map((gig) => (
+            <GigCard key={gig._id} gig={gig} />
+          ))}
+        </div>
       )}
     </div>
   );

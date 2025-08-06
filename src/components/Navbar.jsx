@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const location = useLocation(); // 👈 track route change
+  const location = useLocation();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userId, setUserId] = useState(null);
 
@@ -12,7 +12,7 @@ const Navbar = () => {
     const storedId = localStorage.getItem('userId');
     setIsLoggedIn(!!storedId);
     setUserId(storedId);
-  }, [location]); // 👈 re-run whenever route changes
+  }, [location]);
 
   const handleLogout = () => {
     localStorage.removeItem('userId');
@@ -22,20 +22,30 @@ const Navbar = () => {
   };
 
   return (
-    <nav style={{ display: 'flex', gap: '10px', padding: '10px' }}>
-      <Link to="/">Home</Link>
-      <Link to="/gigs">Gigs</Link>
-      <Link to="/create-gig">Create Gig</Link>
-      {isLoggedIn && <Link to={`/chat?current=${userId}`}>Chat</Link>}
-
-      {!isLoggedIn ? (
-        <>
-          <Link to="/login">Login</Link>
-          <Link to="/register">Register</Link>
-        </>
-      ) : (
-        <button onClick={handleLogout}>Logout</button>
-      )}
+    <nav className="bg-blue-800 text-white px-6 py-4 flex justify-between items-center shadow-md">
+      <div className="text-xl font-bold">
+        <Link to="/" className="hover:text-yellow-400 transition-colors">Freelance Hub</Link>
+      </div>
+      <div className="flex items-center space-x-4">
+        <Link to="/gigs" className="hover:text-yellow-300">Gigs</Link>
+        <Link to="/create-gig" className="hover:text-yellow-300">Create Gig</Link>
+        {isLoggedIn && (
+          <Link to={`/chat?current=${userId}`} className="hover:text-yellow-300">Chat</Link>
+        )}
+        {!isLoggedIn ? (
+          <>
+            <Link to="/login" className="hover:text-yellow-300">Login</Link>
+            <Link to="/register" className="hover:text-yellow-300">Register</Link>
+          </>
+        ) : (
+          <button
+            onClick={handleLogout}
+            className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded"
+          >
+            Logout
+          </button>
+        )}
+      </div>
     </nav>
   );
 };

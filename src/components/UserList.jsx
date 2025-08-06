@@ -10,15 +10,13 @@ const UserList = () => {
   useEffect(() => {
     if (!currentUserId) return;
 
-    socket.emit('getUsers', currentUserId);  // request user list
+    socket.emit('getUsers', currentUserId); // request user list
 
     socket.on('usersList', (data) => {
-      // filter current user out
       const filtered = data.filter(user => user._id !== currentUserId);
       setUsers(filtered);
     });
 
-    // Cleanup to prevent memory leak
     return () => {
       socket.off('usersList');
     };
@@ -29,15 +27,18 @@ const UserList = () => {
   };
 
   return (
-    <div style={{ maxWidth: '400px', margin: 'auto', padding: '20px' }}>
-      <h3>Select a user to chat with:</h3>
+    <div className="max-w-md mx-auto p-6 bg-white rounded shadow-md mt-10">
+      <h3 className="text-xl font-semibold text-center mb-4 text-blue-600">Select a user to chat with:</h3>
       {users.length === 0 ? (
-        <p>🙁 No other users found.</p>
+        <p className="text-center text-gray-600">🙁 No other users found.</p>
       ) : (
-        <ul style={{ listStyle: 'none', padding: 0 }}>
+        <ul className="space-y-3">
           {users.map(user => (
-            <li key={user._id} style={{ margin: '10px 0' }}>
-              <button onClick={() => startChat(user._id)} style={{ width: '100%' }}>
+            <li key={user._id}>
+              <button
+                onClick={() => startChat(user._id)}
+                className="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded transition"
+              >
                 {user.name || user.email}
               </button>
             </li>
