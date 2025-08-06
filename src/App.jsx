@@ -8,12 +8,22 @@ import Chat from './components/Chat';
 import Navbar from './components/Navbar';
 import GigDetail from './pages/GigDetail';
 import EditGig from "./pages/EditGig";
+import UserList from './components/UserList';
+import PrivateRoute from './components/PrivateRoute';
+
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; // CSS for toast
+
+
+
 const Layout = () => (
   <>
     <Navbar />
     <Outlet />
+    <ToastContainer position="top-right" autoClose={3000} />
   </>
 );
+
 
 const router = createBrowserRouter([
   {
@@ -25,11 +35,28 @@ const router = createBrowserRouter([
       { path: "create-gig", element: <CreateGig /> },
       { path: "login", element: <Login /> },
       { path: "register", element: <Register /> },
-      { path: "chat", element: <Chat /> },
+      { 
+  
+        path: "chat",
+        element: (
+          <PrivateRoute>
+            <Chat />
+          </PrivateRoute>
+        )
+      },
+      {
+        path: "chat-list",
+        element: (
+          <PrivateRoute>
+            <UserList />
+          </PrivateRoute>
+        )
+      },
       { path: "gigs/:id", element: <GigDetail /> },
       { path: "edit-gig/:id", element: <EditGig /> },
     ],
   },
+  
 ]);
 
 

@@ -13,52 +13,52 @@ const EditGig = () => {
     deliveryTime: ''
   });
 
+  // Fetch gig data
   useEffect(() => {
-    // Load current gig data
     API.get(`/gigs/${id}`)
-      .then((res) => setForm(res.data))
-      .catch((err) => console.error(err));
+      .then(res => setForm(res.data))
+      .catch(err => console.error(err));
   }, [id]);
 
-  const handleUpdate = async () => {
+  const handleSubmit = async () => {
     try {
       await API.put(`/gigs/${id}`, form);
-      alert('Gig updated successfully!');
-      navigate(`/gigs/${id}`);
-    } catch (err) {
-      console.error(err.response?.data || err.message);
+      alert('Gig updated!');
+      navigate('/gigs');
+    } catch (error) {
+      console.error(error.response?.data || error.message);
     }
   };
 
   return (
-    <div style={{ padding: '20px' }}>
+    <div>
       <h2>Edit Gig</h2>
       <input
-        value={form.title}
         placeholder="Title"
+        value={form.title}
         onChange={(e) => setForm({ ...form, title: e.target.value })}
       />
       <textarea
-        value={form.description}
         placeholder="Description"
+        value={form.description}
         onChange={(e) => setForm({ ...form, description: e.target.value })}
       />
       <input
-        value={form.price}
         placeholder="Price"
+        value={form.price}
         onChange={(e) => setForm({ ...form, price: e.target.value })}
       />
       <input
-        value={form.category}
         placeholder="Category"
+        value={form.category}
         onChange={(e) => setForm({ ...form, category: e.target.value })}
       />
       <input
+        placeholder="Delivery Time"
         value={form.deliveryTime}
-        placeholder="Delivery Time (days)"
         onChange={(e) => setForm({ ...form, deliveryTime: e.target.value })}
       />
-      <button onClick={handleUpdate}>Update Gig</button>
+      <button onClick={handleSubmit}>Update Gig</button>
     </div>
   );
 };
