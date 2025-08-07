@@ -13,14 +13,15 @@ import PrivateRoute from './components/PrivateRoute';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; // CSS for toast
-
-
+import MyOrders from './pages/MyOrders';
+import Success from './pages/Success';
 
 const Layout = () => (
   <>
     <Navbar />
     <Outlet />
     <ToastContainer position="top-right" autoClose={3000} />
+    
   </>
 );
 
@@ -35,6 +36,7 @@ const router = createBrowserRouter([
       { path: "create-gig", element: <CreateGig /> },
       { path: "login", element: <Login /> },
       { path: "register", element: <Register /> },
+      { path: "/my-orders", element: <MyOrders />},
       { 
   
         path: "chat",
@@ -56,6 +58,8 @@ const router = createBrowserRouter([
       { path: "edit-gig/:id", element: <EditGig /> },
     ],
   },
+  { path: "success", element: <Success /> },
+  { path: "*", element: <p className="text-center p-10">Page Not Found</p> },
   
 ]);
 
