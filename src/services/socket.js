@@ -1,7 +1,12 @@
 import { io } from "socket.io-client";
 
 // ✅ Make sure the port matches your backend
-const socket = io("http://localhost:5000");
+//const socket = io("http://localhost:5000");
+
+const socket = io("https://freelance-server-qoli.onrender.com", {
+  transports: ['websocket'],
+  withCredentials: true,
+});
 
 socket.on("connect", () => {
   console.log("✅ Connected to socket:", socket.id);
