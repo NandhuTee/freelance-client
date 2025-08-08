@@ -16,7 +16,7 @@ const stripePromise = loadStripe("pk_test_51RtICOAgjGB2CInK18fgTKLy2rHnLst9RvIJu
   useEffect(() => {
     const fetchGig = async () => {
       try {
-        const { data } = await API.get(`/gigs/${id}`);
+        const { data } = await API.get(`/api/gigs/${id}`);
         setGig(data);
         setLoading(false);
       } catch (err) {
@@ -30,9 +30,9 @@ const stripePromise = loadStripe("pk_test_51RtICOAgjGB2CInK18fgTKLy2rHnLst9RvIJu
 
   const handleDelete = async () => {
     try {
-      await API.delete(`/gigs/${id}`);
+      await API.delete(`/api/gigs/${id}`);
       alert("Gig deleted successfully");
-      navigate("/gigs");
+      navigate("/api/gigs");
     } catch (error) {
       console.error("Delete failed", error);
     }
@@ -48,7 +48,7 @@ const stripePromise = loadStripe("pk_test_51RtICOAgjGB2CInK18fgTKLy2rHnLst9RvIJu
   };
 
   try {
-    await API.post("/orders", orderData);
+    await API.post("api/orders", orderData);
     toast.success("Order placed successfully!");
   } catch (error) {
     console.error(error.response?.data || error.message);
@@ -67,7 +67,7 @@ const handlePayment = async () => {
 
   try {
     
-    const { data } = await API.post("/stripe/create-checkout-session", { gig: gigPayload });
+    const { data } = await API.post("api/stripe/create-checkout-session", { gig: gigPayload });
     const stripe = await stripePromise;
     await stripe.redirectToCheckout({ sessionId: data.id });
   } catch (error) {

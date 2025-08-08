@@ -17,7 +17,7 @@ const CreateGig = () => {
 
   const handleSubmit = async () => {
     try {
-      await API.post('/gigs', form);
+      await API.post('/api/gigs', form);
       alert('Gig created!');
     } catch (error) {
       console.error(error.response?.data || error.message);

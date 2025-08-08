@@ -6,7 +6,7 @@ const Gigs = () => {
   const [gigs, setGigs] = useState([]);
 
   useEffect(() => {
-    API.get('/gigs')
+    API.get('api/gigs')
       .then((res) => setGigs(res.data))
       .catch((err) => console.error(err));
   }, []);

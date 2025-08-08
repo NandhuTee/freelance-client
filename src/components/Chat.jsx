@@ -22,7 +22,7 @@ const Chat = (props) => {
 
     socket.emit('addUser', currentUserId);
 
-    API.get(`/messages/${currentUserId}/${selectedUserId}`)
+    API.get(`/api//messages/${currentUserId}/${selectedUserId}`)
       .then(res => setMessages(res.data))
       .catch(err => console.error('Failed to load messages', err));
 
@@ -39,7 +39,7 @@ const Chat = (props) => {
     if (!content.trim()) return;
 
     try {
-      const { data } = await API.post(`/messages/${currentUserId}/${selectedUserId}`, { content });
+      const { data } = await API.post(`/api/messages/${currentUserId}/${selectedUserId}`, { content });
       setMessages(prev => [...prev, data]);
 
       socket.emit('sendMessage', {

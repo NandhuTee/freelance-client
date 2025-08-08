@@ -14,14 +14,14 @@ const EditGig = () => {
   });
 
   useEffect(() => {
-    API.get(`/gigs/${id}`)
+    API.get(`/api/gigs/${id}`)
       .then(res => setForm(res.data))
       .catch(err => console.error(err));
   }, [id]);
 
   const handleSubmit = async () => {
     try {
-      await API.put(`/gigs/${id}`, form);
+      await API.put(`/api/gigs/${id}`, form);
       alert('Gig updated!');
       navigate('/gigs');
     } catch (error) {

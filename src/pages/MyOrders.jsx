@@ -8,7 +8,7 @@ const MyOrders = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const { data } = await API.get(`/orders/buyer/${userId}`);
+        const { data } = await API.get(`/api/orders/buyer/${userId}`);
         setOrders(data);
       } catch (err) {
         console.error("Failed to fetch orders", err);
